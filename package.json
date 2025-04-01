@@ -6,12 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --fix"
   },
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.26"
+    "next": "14.2.26",
+    "sass": "1.86.1"
   },
   "devDependencies": {
     "typescript": "^5",
@@ -19,6 +20,12 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.26"
+    "eslint-config-next": "14.2.26",
+    "prettier": "3.5.3",
+    "eslint-config-prettier": "10.1.1",
+    "eslint-plugin-prettier": "5.2.5",
+    "eslint-plugin-import": "2.31.0",
+    "@typescript-eslint/eslint-plugin": "8.29.0",
+    "@typescript-eslint/parser": "8.29.0"
   }
 }
