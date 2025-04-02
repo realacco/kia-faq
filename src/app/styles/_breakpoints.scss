@@ -1,0 +1,113 @@
+// 브레이크포인트 정의
+$breakpoints: (
+  'mobile': 0,
+  'tablet': 744px,
+  'desktop': 1024px,
+  'large-desktop': 1440px,
+);
+
+$breakpoint-keys: map-keys($breakpoints);
+
+// 지정된 브레이크포인트 이상에서 적용
+@mixin media-breakpoint-up($name) {
+  $min: map-get($breakpoints, $name);
+
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// 지정된 브레이크포인트 이하에서 적용
+@mixin media-breakpoint-down($name) {
+  $max: map-get($breakpoints, $name);
+
+  @if $max {
+    @media (max-width: calc(#{$max} - 0.02px)) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// 두 브레이크포인트 사이에서 적용
+@mixin media-breakpoint-between($lower, $upper) {
+  $min: map-get($breakpoints, $lower);
+  $max: map-get($breakpoints, $upper);
+
+  @if $min != null and $max != null {
+    @media (min-width: #{$min}) and (max-width: calc(#{$max} - 0.02px)) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($lower) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($upper) {
+      @content;
+    }
+  }
+}
+
+// 모바일: 0 ~ 743.98px
+@mixin mobile-only {
+  @include media-breakpoint-down('tablet') {
+    @content;
+  }
+}
+
+// 태블릿: 744px ~ 1023.98px
+@mixin tablet-only {
+  @include media-breakpoint-between('tablet', 'desktop') {
+    @content;
+  }
+}
+
+// 모바일 & 태블릿: 0 ~ 1023.98px
+@mixin mobile-tablet {
+  @include media-breakpoint-down('desktop') {
+    @content;
+  }
+}
+
+// 태블릿 & 데스크탑: 744px 이상
+@mixin tablet-up {
+  @include media-breakpoint-up('tablet') {
+    @content;
+  }
+}
+
+// 데스크탑: 1024px 이상
+@mixin desktop-up {
+  @include media-breakpoint-up('desktop') {
+    @content;
+  }
+}
+
+// 콘텐츠 컨테이너 최대 너비 설정
+$container-max-widths: (
+  'mobile': 100%,
+  'tablet': 720px,
+  'desktop': 960px,
+  'large-desktop': 1200px,
+);
+
+// 콘텐츠 컨테이너 mixin
+@mixin make-container {
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+
+  @each $breakpoint, $max-width in $container-max-widths {
+    @include media-breakpoint-up($breakpoint) {
+      max-width: $max-width;
+    }
+  }
+}
