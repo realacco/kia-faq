@@ -62,18 +62,6 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               다시 시도
             </button>
           </div>
-
-          <div className={styles.linksSection}>
-            <h2 className={styles.linksSectionTitle}>FAQ 바로가기</h2>
-            <div className={styles.linksList}>
-              <Link href="/?tab=CONSULT" className={styles.consultLink}>
-                상담 FAQ 보기 (CONSULT)
-              </Link>
-              <Link href="/?tab=USAGE" className={styles.usageLink}>
-                이용 FAQ 보기 (USAGE)
-              </Link>
-            </div>
-          </div>
         </div>
       );
     }
