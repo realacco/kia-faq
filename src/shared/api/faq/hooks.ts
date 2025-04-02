@@ -24,6 +24,9 @@ export const useFaqs = (params?: FaqQueryParams) => {
   return useQuery({
     queryKey: FAQ_QUERY_KEYS.list(params || {}),
     queryFn: () => fetchFaqs(params),
+    staleTime: 0, // 항상 "오래된" 데이터로 간주
+    refetchOnMount: 'always', // 컴포넌트가 마운트될 때마다 항상 새로 가져오기
+    gcTime: 1000, // 캐시 유지 시간 짧게 설정 (1초)
   });
 };
 
@@ -63,5 +66,8 @@ export const useFaqCategoriesByTab = (tabId?: FaqTabId) => {
     queryKey: FAQ_QUERY_KEYS.categoriesByTab(tabId || 'CONSULT'),
     queryFn: () => (tabId ? fetchCategoriesByTab(tabId) : []),
     enabled: !!tabId, // tabId가 있을 때만 쿼리 실행
+    staleTime: 0, // 항상 "오래된" 데이터로 간주
+    refetchOnMount: 'always', // 컴포넌트가 마운트될 때마다 항상 새로 가져오기
+    gcTime: 1000, // 캐시 유지 시간 짧게 설정 (1초)
   });
 };
