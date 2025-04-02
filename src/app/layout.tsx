@@ -1,7 +1,11 @@
 import localFont from 'next/font/local';
 
 import type { Metadata, Viewport } from 'next';
+
 import './globals.css';
+
+// eslint-disable-next-line import/order
+import { Providers } from './components/providers';
 
 const geistSans = localFont({
   src: '../shared/assets/fonts/GeistVF.woff',
@@ -65,9 +69,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <header>{/* 헤더 컴포넌트는 별도로 구현 예정 */}</header>
-        <main>{children}</main>
-        <footer>{/* 푸터 컴포넌트는 별도로 구현 예정 */}</footer>
+        <Providers>
+          <header>{/* 헤더 컴포넌트는 별도로 구현 예정 */}</header>
+          <main>{children}</main>
+          <footer>{/* 푸터 컴포넌트는 별도로 구현 예정 */}</footer>
+        </Providers>
       </body>
     </html>
   );
