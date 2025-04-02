@@ -1,0 +1,255 @@
+// 애니메이션 타이밍 변수
+$animation-duration-fast: 150ms;
+$animation-duration-normal: 300ms;
+$animation-duration-slow: 500ms;
+$animation-duration-slower: 700ms;
+
+$ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+$ease-out: cubic-bezier(0, 0, 0.2, 1);
+$ease-in: cubic-bezier(0.4, 0, 1, 1);
+$ease-linear: cubic-bezier(0, 0, 1, 1);
+
+:root {
+  // 애니메이션 지속 시간
+  --animation-duration-fast: #{$animation-duration-fast};
+  --animation-duration-normal: #{$animation-duration-normal};
+  --animation-duration-slow: #{$animation-duration-slow};
+  --animation-duration-slower: #{$animation-duration-slower};
+
+  // easing
+  --ease-in-out: #{$ease-in-out};
+  --ease-out: #{$ease-out};
+  --ease-in: #{$ease-in};
+  --ease-linear: #{$ease-linear};
+
+  // default
+  --transition-base: all var(--animation-duration-normal) var(--ease-out);
+  --transition-fade: opacity var(--animation-duration-normal) var(--ease-out);
+  --transition-transform: transform var(--animation-duration-normal) var(--ease-out);
+  --transition-color: color var(--animation-duration-fast) var(--ease-out);
+  --transition-border: border-color var(--animation-duration-fast) var(--ease-out);
+  --transition-shadow: box-shadow var(--animation-duration-fast) var(--ease-out);
+  --transition-background: background-color var(--animation-duration-fast) var(--ease-out);
+}
+
+// 축소된 애니메이션 설정
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animation-duration-fast: 0.01ms;
+    --animation-duration-normal: 0.01ms;
+    --animation-duration-slow: 0.01ms;
+    --animation-duration-slower: 0.01ms;
+  }
+}
+
+// keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes accordionOpen {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 500px;
+    opacity: 1;
+  }
+}
+
+@keyframes accordionClose {
+  from {
+    max-height: 500px;
+    opacity: 1;
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+// 애니메이션
+.fade-in {
+  animation: fadeIn var(--animation-duration-normal) var(--ease-out);
+}
+
+.fade-out {
+  animation: fadeOut var(--animation-duration-normal) var(--ease-out);
+}
+
+.slide-in-up {
+  animation: slideInUp var(--animation-duration-normal) var(--ease-out);
+}
+
+.slide-in-down {
+  animation: slideInDown var(--animation-duration-normal) var(--ease-out);
+}
+
+.slide-in-left {
+  animation: slideInLeft var(--animation-duration-normal) var(--ease-out);
+}
+
+.slide-in-right {
+  animation: slideInRight var(--animation-duration-normal) var(--ease-out);
+}
+
+.pulse {
+  animation: pulse var(--animation-duration-slow) var(--ease-in-out) infinite;
+}
+
+.spin {
+  animation: spin var(--animation-duration-slower) var(--ease-linear) infinite;
+}
+
+// 탭 및 카테고리 애니메이션
+@mixin tab-active-animation {
+  position: relative;
+  transition: var(--transition-color);
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width var(--animation-duration-normal) var(--ease-out);
+  }
+
+  &.active,
+  &:hover {
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+@mixin accordion-animation {
+  .accordion-content {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition:
+      max-height var(--animation-duration-normal) var(--ease-out),
+      opacity var(--animation-duration-normal) var(--ease-out);
+
+    &.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+  }
+
+  .accordion-icon {
+    transition: transform var(--animation-duration-normal) var(--ease-out);
+
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// 페이지 트랜지션
+@mixin page-transition {
+  .page-enter {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .page-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity var(--animation-duration-normal) var(--ease-out),
+      transform var(--animation-duration-normal) var(--ease-out);
+  }
+
+  .page-exit {
+    opacity: 1;
+  }
+
+  .page-exit-active {
+    opacity: 0;
+    transition: opacity var(--animation-duration-normal) var(--ease-in);
+  }
+}
