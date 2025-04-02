@@ -1,0 +1,77 @@
+@use 'colors';
+@use 'typography';
+@use 'breakpoints';
+@use 'animations';
+
+// Reset & Base Styles
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  transition:
+    background-color var(--animation-duration-normal) var(--ease-out),
+    color var(--animation-duration-normal) var(--ease-out);
+}
+
+.container {
+  @include breakpoints.make-container;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background-card);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+// 다크모드 전환 스타일
+body {
+  &.theme-transition {
+    transition:
+      background-color var(--animation-duration-normal) var(--ease-out),
+      color var(--animation-duration-normal) var(--ease-out);
+
+    * {
+      transition:
+        background-color var(--animation-duration-normal) var(--ease-out),
+        color var(--animation-duration-normal) var(--ease-out),
+        border-color var(--animation-duration-normal) var(--ease-out);
+    }
+  }
+}
