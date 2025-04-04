@@ -1,0 +1,43 @@
+// 라이트 모드(기본) 변수
+:root {
+  --primary-color: #05141f;
+  --primary-hover: #0b2a3f;
+  --secondary-bg: #f0f0f0;
+  --secondary-hover: #e0e0e0;
+  --secondary-text: #666;
+  --text-color: #333;
+  --text-muted: #777;
+  --title-color: #05141f;
+  --border-color: #e0e0e0;
+  --border-light: #eee;
+  --content-bg: #f9f9f9;
+  --card-bg: #fff;
+  --input-bg: #fff;
+  --tab-text: #666;
+  --tab-hover: #333;
+  --category-bg: #f5f5f5;
+  --category-hover: #eaeaea;
+  --button-text: #fff;
+}
+
+// 다크 모드 변수
+.dark-mode {
+  --primary-color: #3399ff;
+  --primary-hover: #66b3ff;
+  --secondary-bg: #333;
+  --secondary-hover: #444;
+  --secondary-text: #ccc;
+  --text-color: #e0e0e0;
+  --text-muted: #999;
+  --title-color: #f5f5f5;
+  --border-color: #444;
+  --border-light: #333;
+  --content-bg: #1e1e1e;
+  --card-bg: #252525;
+  --input-bg: #333;
+  --tab-text: #aaa;
+  --tab-hover: #ccc;
+  --category-bg: #333;
+  --category-hover: #444;
+  --button-text: #fff;
+}
