@@ -1,0 +1,114 @@
+@use '@/app/styles/typography-mixins' as tp;
+@use '@/app/styles/colors-mixins' as colors;
+@use '@/app/styles/animations' as anim;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  border-radius: 4px;
+  transition: var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  line-height: 1; // 추가
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Button Variants */
+
+.button--variant-filled {
+  &.button--theme-primary {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+  }
+
+  &.button--theme-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+  }
+}
+
+.button--variant-text {
+  background-color: transparent;
+
+  &.button--theme-primary {
+    color: var(--color-primary);
+  }
+
+  &.button--theme-secondary {
+    color: var(--color-text-secondary);
+  }
+}
+
+.button--variant-outline {
+  background-color: transparent;
+
+  &.button--theme-primary {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+
+  &.button--theme-secondary {
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+  }
+}
+
+/* Button Sizes */
+.button--size-small {
+  @include tp.body-small;
+  height: 32px;
+  padding: 4px 12px;
+}
+
+.button--size-medium {
+  @include tp.body-default;
+  height: 40px;
+  padding: 8px 16px;
+}
+
+.button--size-large {
+  @include tp.body-large;
+  height: 48px;
+  padding: 12px 24px;
+}
+
+/* Button Width */
+.button--full-width {
+  width: 100%;
+}
+
+/* Icon Button */
+.button--icon-button {
+  aspect-ratio: 1/1;
+  padding: 0;
+
+  &.button--size-small {
+    width: 32px;
+  }
+
+  &.button--size-medium {
+    width: 40px;
+  }
+
+  &.button--size-large {
+    width: 48px;
+  }
+}
