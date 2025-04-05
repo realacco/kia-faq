@@ -1,6 +1,7 @@
 import ArrowDownIcon from './ic_arrow_down.svg';
 import ArrowRightIcon from './ic_arrow_right.svg';
 import ArrowUpIcon from './ic_arrow_up.svg';
+import CloseIcon from './ic_close.svg';
 import DownloadIcon from './ic_download.svg';
 import ProcessIcon from './ic_process.svg';
 import Process02Icon from './ic_process02.svg';
@@ -14,6 +15,7 @@ export {
   ArrowDownIcon,
   ArrowRightIcon,
   ArrowUpIcon,
+  CloseIcon,
   DownloadIcon,
   ProcessIcon,
   Process02Icon,
