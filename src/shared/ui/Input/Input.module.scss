@@ -1,0 +1,43 @@
+@use '@/app/styles/typography-mixins' as tp;
+@use '@/app/styles/colors-mixins' as colors;
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  @include tp.body-default;
+  color: var(--color-text-primary);
+  min-width: 0;
+}
+
+.clearButton,
+.searchButton {
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.clearButton {
+  font-size: 1.25em;
+  line-height: 1;
+}
+
+.searchButton {
+  font-size: 1.25em;
+  padding: 8px 12px;
+  margin-left: 4px;
+}
