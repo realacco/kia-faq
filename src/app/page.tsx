@@ -1,6 +1,7 @@
 'use client';
 
 import { FaqTabs } from '@/widgets/FaqTabs';
+import { FaqFooter } from '@/widgets/layout/footer';
 
 import { Providers } from './components/providers';
 import styles from './page.module.scss';
@@ -20,6 +21,7 @@ export default function Home() {
           </div>
         </main>
       </div>
+      <FaqFooter />
     </Providers>
   );
 }
