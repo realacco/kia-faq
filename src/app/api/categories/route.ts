@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     }
 
     const data: FaqCategory[] = await response.json();
-    return NextResponse.json(['전체', ...data]);
+    return NextResponse.json(data);
   } catch (error) {
     // 네트워크 오류 등 예상치 못한 에러
     console.error('카테고리 데이터 가져오기 오류:', error);

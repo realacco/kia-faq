@@ -1,0 +1,326 @@
+@use '@/app/styles/breakpoints' as bp;
+
+.faqTabsContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Noto Sans KR', sans-serif;
+  display: block;
+  box-sizing: border-box;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+}
+
+.tabsContainer {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  min-width: 350px;
+}
+
+.tabList {
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 16px 0;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.activeTabButton {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.searchContainer {
+  background-color: var(--color-background-card);
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 4px;
+}
+
+.searchForm {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-shadow);
+  }
+}
+
+.searchButton {
+  padding: 12px 20px;
+  background-color: var(--color-primary);
+  color: var(--color-text-primary-dark);
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.searchCancelButton {
+  padding: 12px 16px;
+  background-color: var(--color-secondary);
+  color: var(--color-text-primary-dark);
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.tabPanel {
+  padding: 10px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.categoryContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  min-height: 48px;
+}
+
+.categoryTabs {
+  width: 100%;
+}
+
+.categoryTabList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.categoryTab {
+  padding: 8px 20px;
+  background-color: transparent;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  transition: all 0.2s;
+}
+
+.activeCategoryTab {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+}
+
+.categoryButton {
+  padding: 8px 20px;
+  background-color: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--color-background);
+  }
+}
+
+.activeCategoryButton {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary-dark);
+  border-color: var(--color-primary);
+}
+
+.contentArea {
+  padding: 20px;
+  background-color: var(--color-background);
+  border-radius: 8px;
+  min-height: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+}
+
+.loading,
+.noResults {
+  padding: 20px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-style: italic;
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 400px;
+  min-width: 100%;
+}
+
+.faqItem {
+  padding: 16px;
+  background-color: var(--color-background-card);
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 4px var(--color-shadow);
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 8px var(--color-shadow);
+  }
+}
+
+.faqQuestion {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--color-text-primary);
+}
+
+.faqAnswer {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  color: var(--color-text-secondary);
+}
+
+.faqMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  padding-top: 12px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.paginationButton {
+  padding: 8px 16px;
+  background-color: var(--color-background-card);
+  border: none;
+  border-radius: 4px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-background);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pageInfo {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.loadMoreContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.loadMoreButton {
+  padding: 10px 24px;
+  background-color: var(--color-primary);
+  color: var(--color-text-primary-dark);
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@include bp.tablet-only {
+  .tabButton {
+    padding: 14px 15px;
+    font-size: 15px;
+  }
+}
+
+@include bp.mobile-only {
+  .tabList {
+    overflow-x: auto;
+  }
+
+  .tabButton {
+    padding: 12px 15px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .categoryContainer {
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+}

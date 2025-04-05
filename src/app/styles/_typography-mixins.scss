@@ -1,0 +1,138 @@
+@use 'breakpoints' as bp;
+@use 'typography-variables' as vars;
+
+// 타이포그래피 믹신
+@mixin heading-1 {
+  font-size: vars.$font-size-5xl; // 48px
+  font-weight: vars.$font-weight-bold;
+  line-height: vars.$line-height-tight;
+  letter-spacing: vars.$letter-spacing-tight;
+
+  @include bp.media-breakpoint-down('large-desktop') {
+    font-size: vars.$font-size-4xl; // 36px
+  }
+
+  @include bp.media-breakpoint-down('desktop') {
+    font-size: vars.$font-size-3xl; // 30px
+  }
+
+  @include bp.media-breakpoint-down('tablet') {
+    font-size: vars.$font-size-2xl; // 24px
+  }
+}
+
+@mixin heading-2 {
+  // 기본값: 1440px 이상
+  font-size: vars.$font-size-4xl; // 36px
+  font-weight: vars.$font-weight-bold;
+  line-height: vars.$line-height-tight;
+  letter-spacing: vars.$letter-spacing-tight;
+
+  @include bp.media-breakpoint-down('large-desktop') {
+    font-size: vars.$font-size-3xl; // 30px
+  }
+
+  @include bp.media-breakpoint-down('desktop') {
+    font-size: vars.$font-size-2xl; // 24px
+  }
+
+  @include bp.media-breakpoint-down('tablet') {
+    font-size: vars.$font-size-xl; // 20px
+  }
+}
+
+@mixin heading-3 {
+  // 기본값: 1440px 이상
+  font-size: vars.$font-size-3xl; // 30px
+  font-weight: vars.$font-weight-semibold;
+  line-height: vars.$line-height-tight;
+  letter-spacing: vars.$letter-spacing-tight;
+
+  @include bp.media-breakpoint-down('large-desktop') {
+    font-size: vars.$font-size-2xl; // 24px
+  }
+
+  @include bp.media-breakpoint-down('desktop') {
+    font-size: vars.$font-size-xl; // 20px
+  }
+
+  @include bp.media-breakpoint-down('tablet') {
+    font-size: vars.$font-size-lg; // 18px
+  }
+}
+
+@mixin heading-4 {
+  // 기본값: 1440px 이상
+  font-size: vars.$font-size-2xl; // 24px
+  font-weight: vars.$font-weight-semibold;
+  line-height: vars.$line-height-tight;
+
+  @include bp.media-breakpoint-down('large-desktop') {
+    font-size: vars.$font-size-xl; // 20px
+  }
+
+  @include bp.media-breakpoint-down('desktop') {
+    font-size: vars.$font-size-lg; // 18px
+  }
+
+  @include bp.media-breakpoint-down('tablet') {
+    font-size: vars.$font-size-md; // 16px
+  }
+}
+
+@mixin body-large {
+  // 기본값: 1440px 이상
+  font-size: vars.$font-size-xl; // 20px
+  font-weight: vars.$font-weight-regular;
+  line-height: vars.$line-height-normal;
+
+  @include bp.media-breakpoint-down('large-desktop') {
+    font-size: vars.$font-size-lg; // 18px
+  }
+
+  @include bp.media-breakpoint-down('desktop') {
+    font-size: vars.$font-size-md; // 16px
+  }
+}
+
+@mixin body-default {
+  // 기본값: 1440px 이상
+  font-size: vars.$font-size-md; // 16px
+  font-weight: vars.$font-weight-regular;
+  line-height: vars.$line-height-normal;
+
+  @include bp.media-breakpoint-down('tablet') {
+    font-size: vars.$font-size-sm; // 14px
+  }
+}
+
+@mixin body-small {
+  // 기본값: 1440px 이상
+  font-size: vars.$font-size-sm; // 14px
+  font-weight: vars.$font-weight-regular;
+  line-height: vars.$line-height-normal;
+
+  @include bp.media-breakpoint-down('tablet') {
+    font-size: vars.$font-size-xs; // 12px
+  }
+}
+
+@mixin label {
+  // 기본값: 1440px 이상
+  font-size: vars.$font-size-sm; // 14px
+  font-weight: vars.$font-weight-medium;
+  line-height: vars.$line-height-tight;
+  letter-spacing: vars.$letter-spacing-wide;
+
+  @include bp.media-breakpoint-down('tablet') {
+    font-size: vars.$font-size-xs; // 12px
+    letter-spacing: vars.$letter-spacing-normal;
+  }
+}
+
+@mixin caption {
+  font-size: vars.$font-size-xs; // 12px
+  font-weight: vars.$font-weight-regular;
+  line-height: vars.$line-height-tight;
+  color: var(--color-text-muted);
+}

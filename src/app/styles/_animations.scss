@@ -4,45 +4,13 @@ $animation-duration-normal: 300ms;
 $animation-duration-slow: 500ms;
 $animation-duration-slower: 700ms;
 
+// 이징(easing) 변수
 $ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 $ease-out: cubic-bezier(0, 0, 0.2, 1);
 $ease-in: cubic-bezier(0.4, 0, 1, 1);
 $ease-linear: cubic-bezier(0, 0, 1, 1);
 
-:root {
-  // 애니메이션 지속 시간
-  --animation-duration-fast: #{$animation-duration-fast};
-  --animation-duration-normal: #{$animation-duration-normal};
-  --animation-duration-slow: #{$animation-duration-slow};
-  --animation-duration-slower: #{$animation-duration-slower};
-
-  // easing
-  --ease-in-out: #{$ease-in-out};
-  --ease-out: #{$ease-out};
-  --ease-in: #{$ease-in};
-  --ease-linear: #{$ease-linear};
-
-  // default
-  --transition-base: all var(--animation-duration-normal) var(--ease-out);
-  --transition-fade: opacity var(--animation-duration-normal) var(--ease-out);
-  --transition-transform: transform var(--animation-duration-normal) var(--ease-out);
-  --transition-color: color var(--animation-duration-fast) var(--ease-out);
-  --transition-border: border-color var(--animation-duration-fast) var(--ease-out);
-  --transition-shadow: box-shadow var(--animation-duration-fast) var(--ease-out);
-  --transition-background: background-color var(--animation-duration-fast) var(--ease-out);
-}
-
-// 축소된 애니메이션 설정
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --animation-duration-fast: 0.01ms;
-    --animation-duration-normal: 0.01ms;
-    --animation-duration-slow: 0.01ms;
-    --animation-duration-slower: 0.01ms;
-  }
-}
-
-// keyframes
+// keyframes 정의
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -148,43 +116,43 @@ $ease-linear: cubic-bezier(0, 0, 1, 1);
   }
 }
 
-// 애니메이션
-.fade-in {
-  animation: fadeIn var(--animation-duration-normal) var(--ease-out);
+// 애니메이션 유틸리티 믹신
+@mixin fade-in {
+  animation: fadeIn $animation-duration-normal $ease-out;
 }
 
-.fade-out {
-  animation: fadeOut var(--animation-duration-normal) var(--ease-out);
+@mixin fade-out {
+  animation: fadeOut $animation-duration-normal $ease-out;
 }
 
-.slide-in-up {
-  animation: slideInUp var(--animation-duration-normal) var(--ease-out);
+@mixin slide-in-up {
+  animation: slideInUp $animation-duration-normal $ease-out;
 }
 
-.slide-in-down {
-  animation: slideInDown var(--animation-duration-normal) var(--ease-out);
+@mixin slide-in-down {
+  animation: slideInDown $animation-duration-normal $ease-out;
 }
 
-.slide-in-left {
-  animation: slideInLeft var(--animation-duration-normal) var(--ease-out);
+@mixin slide-in-left {
+  animation: slideInLeft $animation-duration-normal $ease-out;
 }
 
-.slide-in-right {
-  animation: slideInRight var(--animation-duration-normal) var(--ease-out);
+@mixin slide-in-right {
+  animation: slideInRight $animation-duration-normal $ease-out;
 }
 
-.pulse {
-  animation: pulse var(--animation-duration-slow) var(--ease-in-out) infinite;
+@mixin pulse {
+  animation: pulse $animation-duration-slow $ease-in-out infinite;
 }
 
-.spin {
-  animation: spin var(--animation-duration-slower) var(--ease-linear) infinite;
+@mixin spin {
+  animation: spin $animation-duration-slower $ease-linear infinite;
 }
 
 // 탭 및 카테고리 애니메이션
 @mixin tab-active-animation {
   position: relative;
-  transition: var(--transition-color);
+  transition: color $animation-duration-normal $ease-out;
 
   &::after {
     content: '';
@@ -194,7 +162,7 @@ $ease-linear: cubic-bezier(0, 0, 1, 1);
     width: 0;
     height: 2px;
     background-color: var(--color-primary);
-    transition: width var(--animation-duration-normal) var(--ease-out);
+    transition: width $animation-duration-normal $ease-out;
   }
 
   &.active,
@@ -211,8 +179,8 @@ $ease-linear: cubic-bezier(0, 0, 1, 1);
     max-height: 0;
     opacity: 0;
     transition:
-      max-height var(--animation-duration-normal) var(--ease-out),
-      opacity var(--animation-duration-normal) var(--ease-out);
+      max-height $animation-duration-normal $ease-out,
+      opacity $animation-duration-normal $ease-out;
 
     &.open {
       max-height: 500px;
@@ -221,7 +189,7 @@ $ease-linear: cubic-bezier(0, 0, 1, 1);
   }
 
   .accordion-icon {
-    transition: transform var(--animation-duration-normal) var(--ease-out);
+    transition: transform $animation-duration-normal $ease-out;
 
     &.open {
       transform: rotate(180deg);
@@ -240,8 +208,8 @@ $ease-linear: cubic-bezier(0, 0, 1, 1);
     opacity: 1;
     transform: translateY(0);
     transition:
-      opacity var(--animation-duration-normal) var(--ease-out),
-      transform var(--animation-duration-normal) var(--ease-out);
+      opacity $animation-duration-normal $ease-out,
+      transform $animation-duration-normal $ease-out;
   }
 
   .page-exit {
@@ -250,6 +218,6 @@ $ease-linear: cubic-bezier(0, 0, 1, 1);
 
   .page-exit-active {
     opacity: 0;
-    transition: opacity var(--animation-duration-normal) var(--ease-in);
+    transition: opacity $animation-duration-normal $ease-in;
   }
 }

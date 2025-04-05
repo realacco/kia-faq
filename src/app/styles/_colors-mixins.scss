@@ -1,0 +1,73 @@
+@use 'colors-variables' as colors;
+
+// 색상 유틸리티 믹신
+@mixin theme-color($property, $color-name) {
+  #{$property}: var(--color-#{$color-name});
+}
+
+// 배경색 설정
+@mixin bg-primary {
+  background-color: var(--color-primary);
+}
+
+@mixin bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+@mixin bg-card {
+  background-color: var(--color-background-card);
+}
+
+// 텍스트 색상 설정
+@mixin text-primary {
+  color: var(--color-text-primary);
+}
+
+@mixin text-secondary {
+  color: var(--color-text-secondary);
+}
+
+@mixin text-muted {
+  color: var(--color-text-muted);
+}
+
+// 테마 색상 설정
+@mixin button-primary {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}
+
+@mixin button-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  
+  &:hover:not(:disabled) {
+    background-color: var(--color-background-card);
+  }
+}
+
+// 그림자 효과
+@mixin shadow-sm {
+  box-shadow: 0 1px 3px var(--color-shadow);
+}
+
+@mixin shadow-md {
+  box-shadow: 0 4px 6px var(--color-shadow);
+}
+
+@mixin shadow-lg {
+  box-shadow: 0 8px 16px var(--color-shadow);
+}
+
+// 카드 스타일
+@mixin card {
+  background-color: var(--color-background-card);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  @include shadow-sm;
+}
