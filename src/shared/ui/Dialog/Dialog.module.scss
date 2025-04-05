@@ -1,0 +1,78 @@
+// src/components/ui/Dialog/Dialog.module.scss
+
+.dialog {
+  padding: 0 10px;
+  margin: auto;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 90vw;
+  max-height: 85vh;
+  position: relative;
+  background-color: #ffffff;
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// Dialog sizes
+.small {
+  width: 400px;
+}
+
+.medium {
+  width: 600px;
+}
+
+.large {
+  width: 800px;
+}
+
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.dialogHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--color-primary);
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.closeButton {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.dialogTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.dialogBody {
+  overflow-y: auto;
+  flex: 1;
+}
+
+// Mobile responsiveness
+@media (max-width: 640px) {
+  .dialog {
+    width: 100% !important;
+    max-width: calc(100vw - 32px);
+    margin: 16px;
+  }
+}
