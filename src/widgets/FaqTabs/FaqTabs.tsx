@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import { FAQ_TABS, FaqTabId } from '@/entities/faq/model/types';
 import { useFaqCategoriesByTab, usePaginatedFaqs } from '@/shared/api/faq/hooks';
+import { Accordion } from '@/shared/ui/Accordion';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import { Tab } from '@/shared/ui/Tab/Tab';
@@ -153,14 +154,18 @@ export const FaqTabs: React.FC = () => {
               ) : !localFaqs || localFaqs.length === 0 ? (
                 <div className={styles.noResults}>검색 결과가 없습니다.</div>
               ) : (
-                <div className={styles.faqList}>
+                <Accordion className={styles.faqList}>
                   {localFaqs.map(faq => (
-                    <div key={faq.id} className={styles.faqItem}>
-                      <h3 className={styles.faqQuestion}>{faq.question}</h3>
-                      <p className={styles.faqAnswer}>{faq.answer}</p>
-                    </div>
+                    <Accordion.Item key={faq.id} id={faq.id}>
+                      <Accordion.Header id={faq.id}>
+                        <h3 className={styles.faqQuestion}>{faq.question}</h3>
+                      </Accordion.Header>
+                      <Accordion.Content id={faq.id}>
+                        <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
+                      </Accordion.Content>
+                    </Accordion.Item>
                   ))}
-                </div>
+                </Accordion>
               )}
 
               {!isLoadingFaqs && hasMoreData && localFaqs.length > 0 && (

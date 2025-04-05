@@ -3,8 +3,13 @@
 .plus-icon {
   position: relative;
   display: inline-block;
+  transition: transform 0.3s ease;
   width: 1em;
   height: 1em;
+
+  &:active {
+    transform: rotate(90deg);
+  }
 
   &::before,
   &::after {
@@ -180,13 +185,22 @@
 }
 
 .faqList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
   width: 100%;
-  box-sizing: border-box;
-  min-height: 400px;
-  min-width: 100%;
+  margin-top: 20px;
+
+  .faqQuestion {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .faqAnswer {
+    margin: 10px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666;
+  }
 }
 
 .faqItem {
@@ -200,21 +214,6 @@
   &:hover {
     box-shadow: 0 4px 8px var(--color-shadow);
   }
-}
-
-.faqQuestion {
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 0;
-  margin-bottom: 12px;
-  color: var(--color-text-primary);
-}
-
-.faqAnswer {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 16px;
-  color: var(--color-text-secondary);
 }
 
 .faqMeta {
