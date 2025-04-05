@@ -58,6 +58,9 @@ const Item: React.FC<TabItemProps> = ({ id, children, className, activeClassName
   const isActive = activeTab === id;
 
   const handleClick = () => {
+    // 이미 활성화된 탭이면
+    if (isActive) return;
+
     setActiveTab(id);
     // 외부 클릭 핸들러가 있으면 호출
     if (onClick) {

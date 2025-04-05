@@ -37,11 +37,11 @@ export type FaqCategories = FaqCategory[];
 export const FAQ_TABS = {
   CONSULT: {
     id: 'CONSULT',
-    name: '도입문의',
+    name: '서비스 도입',
   },
   USAGE: {
     id: 'USAGE',
-    name: '이용안내',
+    name: '서비스 이용',
   },
 } as const;
 

@@ -4,6 +4,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import { FAQ_TABS, FaqTabId } from '@/entities/faq/model/types';
 import { useFaqCategoriesByTab, usePaginatedFaqs } from '@/shared/api/faq/hooks';
+import { Button } from '@/shared/ui/Button';
+import { Input } from '@/shared/ui/Input';
 import { Tab } from '@/shared/ui/Tab/Tab';
 
 import styles from './FaqTabs.module.scss';
@@ -43,7 +45,6 @@ export const FaqTabs: React.FC = () => {
   }, [faqList, page]);
 
   const handleTabChange = (tabId: string) => {
-    console.log('Tab changed to:', tabId);
     setActiveTab(tabId as FaqTabId);
     setActiveCategory(undefined);
     setPage(1);
@@ -51,20 +52,16 @@ export const FaqTabs: React.FC = () => {
     setHasMoreData(true);
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
+  const search = () => {
     setSearchQuery(searchText);
     setPage(1);
     setLocalFaqs([]);
     setHasMoreData(true);
   };
 
-  const handleCancelSearch = () => {
-    setSearchText('');
-    setSearchQuery('');
-    setPage(1);
-    setLocalFaqs([]);
-    setHasMoreData(true);
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    search();
   };
 
   const handleLoadMore = () => {
@@ -98,25 +95,14 @@ export const FaqTabs: React.FC = () => {
 
         <div className={styles.searchContainer}>
           <form className={styles.searchForm} onSubmit={handleSearch}>
-            <input
-              type="text"
+            <Input
+              placeholder="찾으시는 내용을 입력해 주세요"
+              className={styles.searchInput}
               value={searchText}
               onChange={e => setSearchText(e.target.value)}
-              placeholder="검색어를 입력하세요"
-              className={styles.searchInput}
+              onClear={() => setSearchText('')}
+              onSearch={search}
             />
-            <button type="submit" className={styles.searchButton}>
-              검색
-            </button>
-            {searchText && (
-              <button
-                type="button"
-                onClick={handleCancelSearch}
-                className={styles.searchCancelButton}
-              >
-                취소
-              </button>
-            )}
           </form>
         </div>
 
@@ -179,13 +165,14 @@ export const FaqTabs: React.FC = () => {
 
               {!isLoadingFaqs && hasMoreData && localFaqs.length > 0 && (
                 <div className={styles.loadMoreContainer}>
-                  <button
-                    onClick={handleLoadMore}
-                    className={styles.loadMoreButton}
-                    disabled={isLoadingFaqs}
-                  >
-                    {isLoadingFaqs && page > 1 ? '로딩 중...' : '더보기'}
-                  </button>
+                  {isLoadingFaqs && page > 1 ? (
+                    '로딩 중...'
+                  ) : (
+                    <Button variant="text" onClick={handleLoadMore}>
+                      <span className={styles['plus-icon']} />
+                      더보기
+                    </Button>
+                  )}
                 </div>
               )}
             </div>
