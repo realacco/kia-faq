@@ -2,6 +2,9 @@
 
 이 프로젝트는 [Next.js](https://nextjs.org)를 기반으로 제작된 기아 FAQ 웹사이트입니다.
 
+![image](https://github.com/user-attachments/assets/e5df8dcb-3685-4261-aab7-797b18134f6c)
+
+
 ## 시작하기 전에
 
 ### 필수 설치 항목
@@ -131,9 +134,14 @@ kia-faq/
 
 프로젝트는 다양한 화면 크기에 맞게 최적화된 반응형 디자인을 적용했습니다. 반응형의 디자인 레이아웃은 실제 기아 사이트를 참고하였습니다.
 
+![image](https://github.com/user-attachments/assets/f81dcaeb-a0bc-4baf-a297-eb9fc4e33baf)
+
+
 ### 다크모드 지원
 
 이 프로젝트는 사용자의 브라우저 시스템 설정에 따라 자동으로 다크모드를 지원합니다. SCSS 변수를 활용하여 테마 전환을 구현했습니다.
+
+![image](https://github.com/user-attachments/assets/93641b96-0d3c-4567-93a3-06aa6f077bb5)
 
 ```scss
 // 라이트 모드 (기본)
@@ -219,6 +227,10 @@ Footer에는 다음과 같은 요소들이 포함되어 있습니다:
 ## 테스트
 
 프로젝트에는 Jest와 React Testing Library를 사용한 테스트가 포함되어 있습니다. 테스트 범위는 일정상 UI 컴포넌트의 동작 단위 테스트에 초점을 맞추어 커버되었습니다.
+Pull Request 생성 시 자동으로 테스트 코드 실행 하도록 github workflow를 생성 해 두었습니다.
+
+![image](https://github.com/user-attachments/assets/36bb4839-f623-49fc-becd-c288be25effd)
+
 
 ### 테스트 실행
 
