@@ -11,12 +11,17 @@ const DESKTOP_BREAKPOINT = 1024;
 export const FaqHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth : 0
-  );
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
 
   // ResizeObserver를 위한 ref
   const headerRef = useRef<HTMLElement>(null);
+
+  // 컴포넌트 마운트 시 클라이언트 사이드 렌더링 표시
+  useEffect(() => {
+    setIsMounted(true);
+    setWindowWidth(window.innerWidth);
+  }, []);
 
   // 스크롤 시 헤더 스타일 변경을 위한 이벤트 리스너
   useEffect(() => {
@@ -37,11 +42,6 @@ export const FaqHeader: React.FC = () => {
 
   // ResizeObserver를 사용한 화면 크기 변경 감지
   useEffect(() => {
-    // 초기 로드 시 창 크기 설정
-    if (typeof window !== 'undefined') {
-      setWindowWidth(window.innerWidth);
-    }
-
     // ResizeObserver 생성
     const resizeObserver = new ResizeObserver(() => {
       // viewport 크기를 직접 가져옴
@@ -131,9 +131,9 @@ export const FaqHeader: React.FC = () => {
           </ul>
         </nav>
 
-        {/* 모바일 및 태블릿 사이즈에서의 토글 */}
-        {isMobileOrTablet && (
-          <span className={styles.util}>
+        {/* 모바일 및 태블릿 사이즈에서의 토글 - 클라이언트 사이드에서만 렌더링 */}
+        <div className={styles.util}>
+          {isMounted && isMobileOrTablet && (
             <Button
               type="button"
               variant="text"
@@ -146,8 +146,8 @@ export const FaqHeader: React.FC = () => {
               <span className={styles.bar}></span>
               <span className={styles.text}>메뉴 열기/닫기</span>
             </Button>
-          </span>
-        )}
+          )}
+        </div>
       </div>
     </header>
   );
