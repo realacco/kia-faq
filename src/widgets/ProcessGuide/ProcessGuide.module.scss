@@ -1,0 +1,119 @@
+@use '@/app/styles/breakpoints' as bp;
+@use '@/app/styles/colors-variables' as colors;
+@use '@/app/styles/typography-mixins' as typo;
+
+.processGuide {
+  margin-bottom: 60px;
+}
+
+.title {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.processContainer {
+  width: 100%;
+}
+
+.processList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @include bp.desktop-up {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    align-items: flex-start;
+    gap: 0;
+  }
+}
+
+.arrowWrapper {
+  display: none;
+
+  @include bp.desktop-up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 15px;
+  }
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+}
+
+.processItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  justify-content: flex-start;
+  text-align: left;
+
+  @include bp.desktop-up {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.iconWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  // background-color: colors.$primary-color;
+  flex-shrink: 0;
+
+  @include bp.desktop-up {
+    margin-right: 0;
+    width: 56px;
+    height: 56px;
+    align-self: flex-start; // 좌측 정렬
+  }
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  color: white;
+
+  @include bp.desktop-up {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  @include bp.desktop-up {
+    padding-left: 0; // 좌측 정렬 유지
+  }
+}
+
+.stepTitle {
+  margin: 0 0 8px 0;
+}
+
+.description {
+  // @include typo.body-md;
+  // color: colors.$text-secondary;
+  margin: 0;
+
+  @include bp.desktop-up {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
