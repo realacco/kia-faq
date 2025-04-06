@@ -23,7 +23,7 @@ $box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
   align-items: center;
   justify-items: center;
   min-height: 100svh;
-  padding: 40px 80px 80px;
+  padding: 80px 80px 80px;
   gap: 40px;
   font-family: var(--font-geist-sans);
   background-color: #fff;
@@ -40,14 +40,14 @@ $box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   // 모바일 반응형 스타일 중첩
   @include bp.mobile-only {
-    padding: 20px 16px 40px;
+    padding: 70px 16px 40px;
   }
 }
 
 .main {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 30px;
   grid-row-start: 2;
   width: 100%;
   max-width: 1200px;
@@ -92,7 +92,7 @@ $box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 8px;
-  text-align: center;
+  text-align: left;
   margin-bottom: 16px;
 
   em {
