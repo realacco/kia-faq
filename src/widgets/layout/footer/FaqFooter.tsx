@@ -25,11 +25,10 @@ export const FaqFooter: React.FC = () => {
             />
             <p className={styles.copyright}> 2023 KIA CORP. All Rights Reserved.</p>
           </div>
-          {/* logo section */}
 
-          <div className={styles.linksSection}>
-            {/* link section */}
-            <div className={styles.linkColumn}>
+          <div className={styles.contentSection}>
+            {/* policy links */}
+            <div className={styles.policyLinks}>
               <ul className={styles.linkList}>
                 <li>
                   <a
@@ -49,8 +48,8 @@ export const FaqFooter: React.FC = () => {
             </div>
 
             {/* business info */}
-            <div className={styles.linkColumn}>
-              <ul className={styles.linkList}>
+            <div className={styles.businessInfoWrapper}>
+              <ul className={`${styles.linkList} ${styles.businessInfo}`}>
                 <li>서울특별시 서초구 헌릉로 12 기아㈜</li>
                 <li>대표: 송호성, 최준영</li>
                 <li>사업자등록번호: 119-81-02316</li>

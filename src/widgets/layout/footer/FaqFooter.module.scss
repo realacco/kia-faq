@@ -1,8 +1,10 @@
+@use '@/app/styles/typography-mixins' as tp;
+
 .footer {
   background-color: #1a1a1a;
   color: #ffffff;
   font-family: 'Kia Text', Arial, sans-serif;
-  padding: 3rem 0;
+  padding: 2rem 0;
 }
 
 .container {
@@ -13,35 +15,65 @@
 
 .topSection {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  margin-bottom: 3rem;
   gap: 2rem;
 }
 
 .logoSection {
-  flex: 0 0 220px;
+  flex: 0 0 200px;
+  order: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
   .logo {
     margin-bottom: 1rem;
+    width: 140px;
+    height: 45px;
+    object-fit: contain;
+    display: block;
   }
 
   .copyright {
-    font-size: 0.8rem;
-    color: #999;
+    @include tp.caption;
+    text-align: left;
   }
 }
 
-.linksSection {
+.contentSection {
   flex: 1;
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
 }
 
-.linkColumn {
-  flex: 1;
-  min-width: 160px;
+.policyLinks {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  @include tp.body-default;
+
+  .linkList {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    gap: 16px;
+
+    li {
+      margin-bottom: 8px;
+      margin-right: 0;
+    }
+  }
+}
+
+.businessInfoWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .linkTitle {
@@ -52,6 +84,8 @@
 }
 
 .linkList {
+  display: flex;
+  flex-direction: column;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -60,14 +94,8 @@
     margin-bottom: 0.7rem;
 
     a {
-      color: #b3b3b3;
-      text-decoration: none;
       font-size: 0.9rem;
       transition: color 0.2s ease;
-
-      &:hover {
-        color: #ffffff;
-      }
     }
   }
 }
@@ -79,7 +107,6 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #333;
 }
 
 .companyInfo {
@@ -117,15 +144,115 @@
   fill: #fff;
 }
 
+.businessInfo {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+
+  @include tp.body-small;
+  color: var(--color-text-muted);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 16px;
+    row-gap: 4px;
+
+    li {
+      position: relative;
+      margin-bottom: 4px;
+      margin-right: 0;
+    }
+  }
+}
+
+// 반응형 로고 크기
+@media (min-width: 1441px) {
+  .logoSection .logo {
+    width: 160px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 1440px) and (min-width: 1025px) {
+  .logoSection .logo {
+    width: 140px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .logoSection .logo {
+    width: 120px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 768px) {
+  .logoSection .logo {
+    width: 110px;
+    height: 35px;
+  }
+}
+
 // 반응형 스타일
 @media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem 0;
+  }
+
   .topSection {
     flex-direction: column;
+    gap: 1rem;
+  }
+
+  .logoSection {
+    order: 3;
+    margin-top: 1rem;
+    align-self: flex-start;
+
+    .copyright {
+      margin-bottom: 0;
+    }
+  }
+
+  .contentSection {
+    order: 1;
+    margin-top: 0;
+  }
+
+  .policyLinks {
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+
+    .linkList {
+      justify-content: flex-start;
+    }
+  }
+
+  .businessInfoWrapper {
+    justify-content: flex-start;
+    order: 2;
+  }
+
+  .businessInfo {
+    flex-direction: column;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .bottomSection {
     flex-direction: column;
-    text-align: center;
+    text-align: left;
+    padding-top: 1rem;
   }
 
   .companyInfo {
@@ -135,6 +262,6 @@
   .socialLinks {
     order: 1;
     margin-bottom: 1rem;
-    justify-content: center;
+    justify-content: flex-start;
   }
 }
