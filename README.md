@@ -1,36 +1,260 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 기아 FAQ 프로젝트
 
-## Getting Started
+이 프로젝트는 [Next.js](https://nextjs.org)를 기반으로 제작된 기아 FAQ 웹사이트입니다.
 
-First, run the development server:
+## 시작하기 전에
+
+### 필수 설치 항목
+
+프로젝트를 실행하기 전에 다음 항목들이 설치되어 있어야 합니다:
+
+- [Node.js](https://nodejs.org/) (v18 이상 권장)
+- [pnpm](https://pnpm.io/installation) (패키지 관리자)
+
+### 패키지 설치
+
+프로젝트 디렉토리에서 다음 명령어를 실행하여 필요한 패키지를 설치합니다:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 개발 서버 실행
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+개발 서버를 실행하려면 다음 명령어를 사용합니다:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev
+```
 
-## Learn More
+브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 결과를 확인할 수 있습니다.
 
-To learn more about Next.js, take a look at the following resources:
+## 목 API 서버 실행
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 정상 작동 API 서버
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+항상 성공하는 API 응답을 받기 위한 서버를 실행하려면 다음 명령어를 사용합니다:
 
-## Deploy on Vercel
+```bash
+pnpm mock-api
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+이 프로젝트는 [json-server](https://github.com/typicode/json-server)를 사용하여 간이 백엔드가 구현되어 있습니다. 이를 통해 실제 백엔드 없이도 API 요청 및 응답을 테스트할 수 있습니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 에러 테스트용 API 서버
+
+에러 페이지를 테스트하기 위한 목 API 서버를 실행하려면 별도의 터미널에서 다음 명령어를 실행합니다:
+
+```bash
+pnpm mock-error-api
+```
+
+이 서버는 50% 확률로 API 호출이 실패하도록 설정되어 있으며, 400, 401, 403, 404, 500 중 랜덤으로 에러 코드를 발생시킵니다.
+
+**참고**: 개발 서버와 목 API 서버를 동시에 실행해야 합니다.
+**참고**: 모든 mock data는 실제 kia page에서 가져왔습니다.
+
+## 프로젝트 구조
+
+이 프로젝트는 FSD(Feature-Sliced Design) 아키텍처를 차용하여 구성되었습니다. FSD는 기능 중심의 모듈화된 구조로, 코드의 재사용성과 유지보수성을 높이는 데 중점을 둡니다. features, pages 폴더 구조는 프로젝트 규모 상 필요하지 않아 사용하지 않았습니다.
+
+```
+kia-faq/
+├── src/                # 소스 코드
+│   ├── app/            # 애플리케이션 진입점 및 글로벌 설정
+│   │   ├── api/        # API 라우트 (Next.js API Routes)
+│   │   │   ├── categories/ # 카테고리 API
+│   │   │   ├── faq/    # FAQ API
+│   │   │   └── terms/  # 이용약관 API
+│   │   ├── components/ # 앱 레벨 컴포넌트
+│   │   ├── styles/     # 글로벌 스타일
+│   │   ├── page.tsx    # 메인 페이지
+│   │   └── error.tsx   # 에러 페이지
+│   │
+│   ├── entities/       # 비즈니스 엔티티 (데이터 모델, 상태)
+│   │   ├── faq/        # FAQ 관련 엔티티
+│   │   │   └── model/  # FAQ 데이터 모델
+│   │   └── terms/      # 이용약관 관련 엔티티
+│   │       ├── model/  # 이용약관 데이터 모델
+│   │       └── ui/     # 이용약관 UI 컴포넌트
+│   │           └── TermsDialog/ # 이용약관 다이얼로그
+│   │
+│   ├── shared/         # 공통 유틸리티 및 UI 컴포넌트
+│   │   ├── api/        # API 클라이언트 및 훅
+│   │   │   ├── faq/    # FAQ API 통신
+│   │   │   └── terms/  # 이용약관 API 통신
+│   │   ├── assets/     # 정적 자산
+│   │   │   ├── fonts/  # 폰트
+│   │   │   └── icons/  # 아이콘
+│   │   └── ui/         # 재사용 가능한 UI 컴포넌트
+│   │       ├── Accordion/ # 아코디언 컴포넌트
+│   │       ├── Button/ # 버튼 컴포넌트
+│   │       ├── Dialog/ # 다이얼로그 컴포넌트
+│   │       ├── Icons/  # 아이콘 컴포넌트
+│   │       ├── Input/  # 입력 필드 컴포넌트
+│   │       ├── ScrollToTop/ # 스크롤 버튼 컴포넌트
+│   │       ├── Select/ # 선택 컴포넌트
+│   │       ├── Spinner/ # 로딩 컴포넌트
+│   │       └── Tab/    # 탭 컴포넌트
+│   │
+│   └── widgets/        # 복합 UI 블록 (여러 기능과 엔티티 조합)
+│       ├── AppDownload/ # 앱 다운로드 섹션
+│       ├── FaqTabs/    # FAQ 탭 컴포넌트
+│       ├── ProcessGuide/ # 프로세스 가이드 컴포넌트
+│       ├── ServiceInquiry/ # 서비스 문의 컴포넌트
+│       └── layout/     # 레이아웃 컴포넌트
+│           ├── footer/ # 푸터 컴포넌트
+│           └── header/ # 헤더 컴포넌트
+│
+├── public/             # 정적 파일 ex. 로고 이미지
+├── db.json             # JSON Server 데이터베이스 파일
+└── package.json        # 프로젝트 의존성 및 스크립트
+```
+
+### FSD 계층 구조 설명
+
+- **app**: 애플리케이션의 진입점으로, 페이지, 라우팅, 글로벌 스타일 등을 포함합니다.
+- **entities**: 비즈니스 엔티티를 정의합니다. 각 엔티티는 데이터 모델, 상태 관리, UI 표현을 포함합니다.
+
+  - ex: `terms` - 이용약관 관련 모델 및 UI
+
+- **shared**: 프로젝트 전체에서 재사용되는 코드를 포함합니다.
+
+  - `api`: API 클라이언트, 통신 로직, 커스텀 훅
+  - `ui`: 버튼, 입력 필드, 아코디언 등 기본 UI 컴포넌트
+
+- **widgets**: 여러 기능과 엔티티를 조합한 복합 UI 블록입니다.
+  - 예: `FaqTabs` - FAQ 탭 시스템, `layout` - 헤더 및 푸터
+
+## UI 디자인 및 레이아웃
+
+### 반응형 디자인
+
+프로젝트는 다양한 화면 크기에 맞게 최적화된 반응형 디자인을 적용했습니다. 반응형의 디자인 레이아웃은 실제 기아 사이트를 참고하였습니다.
+
+### 다크모드 지원
+
+이 프로젝트는 사용자의 브라우저 시스템 설정에 따라 자동으로 다크모드를 지원합니다. SCSS 변수를 활용하여 테마 전환을 구현했습니다.
+
+```scss
+// 라이트 모드 (기본)
+:root {
+  --color-background: #ffffff;
+  --color-text-primary: #05141f;
+  --color-border: #dee2e6;
+  // 기타 변수들...
+}
+
+// 다크모드 - 시스템 설정 기반 자동 전환
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #05141f;
+    --color-text-primary: #ffffff;
+    --color-border: #495057;
+    // 기타 변수들...
+  }
+}
+```
+
+다크모드에서는 다음과 같은 특징이 있습니다:
+
+- 배경색과 텍스트 색상이 반전되어 눈의 피로를 줄임
+- UI 요소(탭, 카테고리 등)의 색상도 다크모드에 맞게 조정
+- 기아 사이트에서 다운로드한 이미지나 아이콘 중 검정색 계열은 다크모드에서 그대로 표시되어 어색할 수 있지만만, 그 외 요소들은 다크모드에 맞게 처리
+
+### Footer 구성
+
+Footer에는 다음과 같은 요소들이 포함되어 있습니다:
+
+- **회사 정보**: 로고, 저작권 정보, 회사 주소, 대표자 정보 등
+- **정책 링크**:
+  - 개인정보 처리방침: 외부 링크(https://privacy.kia.com/overview/full-policy)로 연결
+  - 이용약관: 클릭 시 다이얼로그 표시
+- **연락처 정보**:
+  - 고객센터 전화번호
+  - 이메일 주소(kiabiz@kia.com): mailto 링크 적용 및 밑줄 스타일 추가
+  - 이메일 링크 스타일
+
+## 주요 기능
+
+### FAQ 시스템
+
+- 탭 기반 카테고리 필터링 (서비스 도입, 서비스 이용)
+- 카테고리별 FAQ 목록 표시
+- 검색 기능 (제목, 내용 기반 검색)
+- "더보기" 버튼을 통한 페이지네이션
+
+### 탭 시스템
+
+- 합성 컴포넌트(Compound Component) 패턴으로 구현된 탭 컴포넌트
+- 탭 전환 시 해당 탭의 카테고리만 표시
+- 탭 헤더의 스타일이 변경 될 일이 많아 보여 UI headless하게 구현
+
+### API 통합
+
+- React Query와 Axios를 사용한 API 통신
+- 탭별 카테고리 목록 조회 API
+- FAQ 검색 및 페이지네이션 API
+
+## 기술 스택
+
+### 프론트엔드
+
+- [Next.js](https://nextjs.org/) - Nextjs 14.2.26
+- [TypeScript](https://www.typescriptlang.org/) - 정적 타이핑
+- [SCSS Modules](https://github.com/css-modules/css-modules) - 스타일링
+- [@tanstack/react-query](https://tanstack.com/query) - 서버 상태 관리
+- [Axios](https://axios-http.com/) - HTTP 클라이언트
+
+### 테스트
+
+- [Jest](https://jestjs.io/) - 테스트 프레임워크
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - 컴포넌트 테스트
+
+## 테스트
+
+프로젝트에는 Jest와 React Testing Library를 사용한 테스트가 포함되어 있습니다. 테스트 범위는 일정상 UI 컴포넌트의 동작 단위 테스트에 초점을 맞추어 커버되었습니다.
+
+### 테스트 실행
+
+```bash
+# 모든 테스트 실행
+pnpm test
+
+# 테스트 감시 모드 실행 (파일 변경 시 자동 재실행)
+pnpm test:watch
+
+# 테스트 커버리지 보고서 생성
+pnpm test:coverage
+```
+
+### 에러 처리
+
+이 프로젝트는 다양한 에러 상황을 처리하기 위한 시스템을 갖추고 있습니다.
+실제 기아 사이트에서는 나중에 다시 이용해 달라는 error dialog를 띄우지만 현재 프로젝트에서는 에러 페이지를 띄웁니다.
+사용자에게 다시 시도 할 수 있는 선택지를 줌으로써 사용성을 높입니다.
+
+- **에러 경계 컴포넌트**: 컴포넌트 렌더링 중 발생하는 에러를 캐치하여 사용자에게 친숙한 에러 메시지를 표시합니다.
+- **에러 페이지**: API 호출 실패 시 적절한 에러 페이지를 표시합니다.
+- **에러 테스트**: `pnpm mock-error-api` 명령어를 사용하여 다양한 에러 상황(400, 401, 403, 404, 500)을 테스트할 수 있습니다.
+
+## 개선 사항 및 아쉬운 점
+
+프로젝트를 진행하면서 시간 제약으로 인해 완벽하게 구현하지 못한 부분들이 있습니다. 향후 개선이 필요한 사항들은 다음과 같습니다:
+
+### 다크모드 완성도
+
+- 다크모드를 지원하도록 구현했으나, 일부 컴포넌트와 이미지에서 완벽한 대응이 이루어지지 않았습니다.
+- 특히 기아 사이트에서 가져온 검정색 계열 이미지와 아이콘은 다크모드에서 시인성이 떨어질 수 있습니다.
+- SVG 아이콘을 활용하여 테마에 따라 색상이 자동으로 변경되도록 개선할 필요가 있습니다.
+
+### 폰트 적용
+
+- 실제 기아 웹사이트에서 사용하는 전용 폰트를 적용하지 못했습니다.
+- 라이센스 문제로 인해 시스템 기본 폰트를 사용했으나, 향후 적절한 대체 폰트나 공식 폰트를 적용하면 디자인 일관성이 향상될 것입니다.
+
+### 테스트 커버리지
+
+- 시간 제약으로 인해 테스트 커버리지가 충분하지 않습니다.
+- 현재는 주요 UI 컴포넌트에 대한 단위 테스트만 구현되어 있으며, 통합 테스트와 E2E 테스트가 부족합니다.
+- 특히 API 통신 부분과 에러 처리에 대한 테스트를 강화할 필요가 있습니다.
