@@ -10,7 +10,6 @@ const DESKTOP_BREAKPOINT = 1024;
 
 export const FaqHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -21,23 +20,6 @@ export const FaqHeader: React.FC = () => {
   useEffect(() => {
     setIsMounted(true);
     setWindowWidth(window.innerWidth);
-  }, []);
-
-  // 스크롤 시 헤더 스타일 변경을 위한 이벤트 리스너
-  useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
   }, []);
 
   // ResizeObserver를 사용한 화면 크기 변경 감지
@@ -77,7 +59,7 @@ export const FaqHeader: React.FC = () => {
   const isMobileOrTablet = windowWidth < DESKTOP_BREAKPOINT;
 
   return (
-    <header ref={headerRef} className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+    <header ref={headerRef} className={`${styles.header}`}>
       <div className={styles.inner}>
         <Link
           href="/"

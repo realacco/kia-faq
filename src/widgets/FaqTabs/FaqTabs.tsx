@@ -36,7 +36,7 @@ export const FaqTabs: React.FC = () => {
     tab: activeTab,
     categoryId: activeCategory,
     searchText: searchQuery,
-    _timestamp: searchTimestamp, // 타임스탬프를 쿼리 파라미터에 추가
+    _timestamp: searchTimestamp,
   });
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export const FaqTabs: React.FC = () => {
 
   const search = () => {
     setSearchQuery(searchText);
-    setSearchTimestamp(Date.now()); // 새로운 타임스탬프 생성
+    setSearchTimestamp(Date.now());
     setPage(1);
     setLocalFaqs([]);
     setHasMoreData(true);
@@ -74,7 +74,7 @@ export const FaqTabs: React.FC = () => {
   const handleInputSearch = (value: string) => {
     setSearchText(value);
     setSearchQuery(value);
-    setSearchTimestamp(Date.now()); // 새로운 타임스탬프 생성
+    setSearchTimestamp(Date.now());
     setPage(1);
     setLocalFaqs([]);
     setHasMoreData(true);
@@ -83,7 +83,7 @@ export const FaqTabs: React.FC = () => {
   const handleInputClear = () => {
     setSearchText('');
     setSearchQuery('');
-    setSearchTimestamp(Date.now()); // 새로운 타임스탬프 생성
+    setSearchTimestamp(Date.now());
     setPage(1);
     setLocalFaqs([]);
     setHasMoreData(true);
@@ -92,15 +92,6 @@ export const FaqTabs: React.FC = () => {
   const handleLoadMore = () => {
     setPage(prev => prev + 1);
   };
-
-  useEffect(() => {
-    console.log('Active Tab:', activeTab);
-    console.log('Categories:', categories);
-    console.log('Categories length:', categories.length);
-    if (categories.length > 0) {
-      console.log('First category:', categories[0]);
-    }
-  }, [activeTab, categories]);
 
   return (
     <div className={styles.faqTabsContainer}>
