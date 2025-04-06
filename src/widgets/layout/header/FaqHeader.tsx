@@ -12,14 +12,42 @@ export const FaqHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   // ResizeObserver를 위한 ref
   const headerRef = useRef<HTMLElement>(null);
+  const bodyRef = useRef<HTMLElement | null>(null);
 
   // 컴포넌트 마운트 시 클라이언트 사이드 렌더링 표시
   useEffect(() => {
     setIsMounted(true);
     setWindowWidth(window.innerWidth);
+  }, []);
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    if (bodyRef.current) {
+      const scrollTop = bodyRef.current.scrollTop || document.documentElement.scrollTop;
+      setHasScrolled(scrollTop > 10);
+    }
+  };
+
+  // 스크롤 이벤트 등록
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      bodyRef.current = document.body;
+
+      if (bodyRef.current) {
+        bodyRef.current.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+      }
+    }
+
+    return () => {
+      if (bodyRef.current) {
+        bodyRef.current.removeEventListener('scroll', handleScroll);
+      }
+    };
   }, []);
 
   // ResizeObserver를 사용한 화면 크기 변경 감지
@@ -59,7 +87,10 @@ export const FaqHeader: React.FC = () => {
   const isMobileOrTablet = windowWidth < DESKTOP_BREAKPOINT;
 
   return (
-    <header ref={headerRef} className={`${styles.header}`}>
+    <header
+      ref={headerRef}
+      className={`${styles.header} ${hasScrolled ? styles.scrolled : styles.noShadow}`}
+    >
       <div className={styles.inner}>
         <Link
           href="/"
