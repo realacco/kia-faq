@@ -7,6 +7,7 @@ import { useFaqCategoriesByTab, usePaginatedFaqs } from '@/shared/api/faq/hooks'
 import { Accordion } from '@/shared/ui/Accordion';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
+import { Spinner } from '@/shared/ui/Spinner';
 import { Tab } from '@/shared/ui/Tab/Tab';
 
 import styles from './FaqTabs.module.scss';
@@ -144,7 +145,9 @@ export const FaqTabs: React.FC = () => {
                 }}
               >
                 {isLoadingCategories ? (
-                  <div className={styles.loading}>카테고리 로딩 중...</div>
+                  <div className={styles.loading}>
+                    <Spinner size="small" className={styles.loadingSpinner} />
+                  </div>
                 ) : (
                   <Tab.List className={styles.categoryTabList}>
                     <Tab.Item
@@ -173,7 +176,9 @@ export const FaqTabs: React.FC = () => {
 
             <div className={styles.contentArea}>
               {isLoadingFaqs && page === 1 ? (
-                <div className={styles.loading}>FAQ 로딩 중...</div>
+                <div className={styles.loading}>
+                  <Spinner size="medium" className={styles.loadingSpinner} />
+                </div>
               ) : !localFaqs || localFaqs.length === 0 ? (
                 <div className={styles.noResults}>검색 결과가 없습니다.</div>
               ) : (
@@ -190,17 +195,17 @@ export const FaqTabs: React.FC = () => {
                   ))}
                 </Accordion>
               )}
-
               {!isLoadingFaqs && hasMoreData && localFaqs.length > 0 && (
                 <div className={styles.loadMoreContainer}>
-                  {isLoadingFaqs && page > 1 ? (
-                    '로딩 중...'
-                  ) : (
-                    <Button variant="text" onClick={handleLoadMore}>
-                      <span className={styles['plus-icon']} />
-                      더보기
-                    </Button>
-                  )}
+                  <Button variant="text" onClick={handleLoadMore}>
+                    <span className={styles['plus-icon']} />
+                    더보기
+                  </Button>
+                </div>
+              )}
+              {isLoadingFaqs && page > 1 && (
+                <div className={styles.loadMoreLoading}>
+                  <Spinner size="small" className={styles.loadingSpinner} />
                 </div>
               )}
             </div>

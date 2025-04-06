@@ -102,19 +102,6 @@ $box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
-.faqContainer {
-  width: 100%;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: $box-shadow-medium;
-  overflow: hidden;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: #1e1e1e;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-}
-
 .ctas {
   display: flex;
   gap: 16px;

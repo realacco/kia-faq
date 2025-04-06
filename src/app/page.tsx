@@ -21,9 +21,8 @@ export default function Home() {
             자주 묻는 질문
             <em>궁금하신 내용을 빠르게 찾아보세요.</em>
           </h1>
-          <div className={styles.faqContainer}>
-            <FaqTabs />
-          </div>
+
+          <FaqTabs />
           <ServiceInquiry />
           <ProcessGuide />
           <AppDownload />
