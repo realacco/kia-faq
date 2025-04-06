@@ -167,6 +167,15 @@
   }
 }
 
+.emailLink {
+  text-decoration: underline;
+  color: var(--color-text-muted);
+  
+  &:hover, &:visited, &:active {
+    color: var(--color-text-muted);
+  }
+}
+
 // 반응형 로고 크기
 @media (min-width: 1441px) {
   .logoSection .logo {

@@ -8,7 +8,7 @@ import { Select } from '@/shared/ui/Select';
 import styles from './FaqFooter.module.scss';
 
 export const FaqFooter: React.FC = () => {
-  const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   return (
     <footer className={styles.footer}>
@@ -32,17 +32,23 @@ export const FaqFooter: React.FC = () => {
               <ul className={styles.linkList}>
                 <li>
                   <a
-                    href="#"
-                    onClick={e => {
-                      e.preventDefault();
-                      setIsPrivacyPolicyOpen(true);
-                    }}
+                    href="https://privacy.kia.com/overview/full-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     개인정보 처리방침
                   </a>
                 </li>
                 <li>
-                  <Link href="/cookies">이용 약관</Link>
+                  <a
+                    href="#"
+                    onClick={e => {
+                      e.preventDefault();
+                      setIsTermsOpen(true);
+                    }}
+                  >
+                    이용 약관
+                  </a>
                 </li>
               </ul>
             </div>
@@ -55,19 +61,20 @@ export const FaqFooter: React.FC = () => {
                 <li>사업자등록번호: 119-81-02316</li>
                 <li>통신판매번호: 2006-07935</li>
                 <li>고객센터: 1833-4964</li>
-                <li>제휴문의: kiabiz@kia.com</li>
+                <li>
+                  제휴문의:{' '}
+                  <a href="mailto:kiabiz@kia.com" className={styles.emailLink}>
+                    kiabiz@kia.com
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      <Dialog
-        isOpen={isPrivacyPolicyOpen}
-        onClose={() => setIsPrivacyPolicyOpen(false)}
-        title="개인정보 처리방침"
-      >
+      <Dialog isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} title="이용 약관">
         <div>
-          <p>개인정보 처리방침</p>
+          <p>이용 약관 내용</p>
           <Select
             options={[
               { value: 'option1', label: '옵션 1' },
