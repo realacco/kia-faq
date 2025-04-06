@@ -90,7 +90,6 @@ kia-faq/
 │   │       ├── Accordion/ # 아코디언 컴포넌트
 │   │       ├── Button/ # 버튼 컴포넌트
 │   │       ├── Dialog/ # 다이얼로그 컴포넌트
-│   │       ├── Icons/  # 아이콘 컴포넌트
 │   │       ├── Input/  # 입력 필드 컴포넌트
 │   │       ├── ScrollToTop/ # 스크롤 버튼 컴포넌트
 │   │       ├── Select/ # 선택 컴포넌트
