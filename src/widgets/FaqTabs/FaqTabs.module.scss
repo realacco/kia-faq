@@ -1,4 +1,5 @@
 @use '@/app/styles/breakpoints' as bp;
+@use '@/app/styles/typography-mixins' as tp;
 
 .plus-icon {
   position: relative;
@@ -65,12 +66,12 @@
   background: var(--color-background);
   color: var(--color-text-primary);
   border: none;
-  font-size: 16px;
-  font-weight: 500;
   cursor: pointer;
   position: relative;
   transition: all 0.2s;
   text-align: center;
+
+  @include tp.heading-4;
 }
 
 .activeTabButton {
@@ -130,9 +131,10 @@
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 14px;
   color: var(--color-text-primary);
   transition: all 0.2s;
+
+  @include tp.menu-item;
 }
 
 .activeCategoryTab {
@@ -204,15 +206,12 @@
 
 .faqList {
   width: 100%;
-  margin-top: 0; /* 상단 마진 제거 */
+  margin-top: 0;
   border: none;
   box-shadow: none;
 
   .faqQuestion {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
+    @include tp.body-default;
   }
 
   .faqAnswer {
@@ -220,6 +219,66 @@
     font-size: 14px;
     line-height: 1.5;
     color: #666;
+  }
+}
+
+.faqHeader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @include bp.desktop-up {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.categoryWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  
+  @include bp.desktop-up {
+    margin-bottom: 0;
+  }
+}
+
+.faqCategoryName {
+  @include tp.body-small;
+  
+  @include bp.desktop-up {
+    width: 140px;
+    margin-right: 16px;
+  }
+}
+
+.faqSubCategoryName {
+  @include tp.body-small;
+  margin-left: 8px;
+  
+  &:before {
+    content: '>';
+    margin-right: 8px;
+    color: var(--color-text-muted);
+  }
+
+  @include bp.desktop-up {
+    margin-left: 0;
+    width: 160px;
+    margin-right: 16px;
+    
+    &:before {
+      content: '';
+      margin-right: 0;
+    }
+  }
+}
+
+.faqQuestionContainer {
+  flex: 1;
+
+  @include bp.desktop-up {
+    padding-right: 24px;
   }
 }
 
@@ -271,22 +330,9 @@
   }
 }
 
-@include bp.tablet-only {
-  .tabButton {
-    padding: 14px 15px;
-    font-size: 15px;
-  }
-}
-
 @include bp.mobile-only {
   .tabList {
     overflow-x: auto;
-  }
-
-  .tabButton {
-    padding: 12px 15px;
-    font-size: 14px;
-    white-space: nowrap;
   }
 
   .categoryContainer {

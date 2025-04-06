@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { FAQ_TABS, FaqTabId } from '@/entities/faq/model/types';
+import { FAQ_TABS, FaqItem, FaqTabId } from '@/entities/faq/model/types';
 import { useFaqCategoriesByTab, usePaginatedFaqs } from '@/shared/api/faq/hooks';
 import { Accordion } from '@/shared/ui/Accordion';
 import { Button } from '@/shared/ui/Button';
@@ -18,7 +18,7 @@ export const FaqTabs: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
-  const [localFaqs, setLocalFaqs] = useState<any[]>([]);
+  const [localFaqs, setLocalFaqs] = useState<FaqItem[]>([]);
   const [hasMoreData, setHasMoreData] = useState(true);
 
   // 검색 요청마다 고유한 식별자를 생성하기 위한 타임스탬프
@@ -184,11 +184,21 @@ export const FaqTabs: React.FC = () => {
               ) : (
                 <Accordion className={styles.faqList}>
                   {localFaqs.map(faq => (
-                    <Accordion.Item key={faq.id} id={faq.id}>
-                      <Accordion.Header id={faq.id}>
-                        <h3 className={styles.faqQuestion}>{faq.question}</h3>
+                    <Accordion.Item key={String(faq.id)} id={String(faq.id)}>
+                      <Accordion.Header id={String(faq.id)}>
+                        <div className={styles.faqHeader}>
+                          <div className={styles.categoryWrapper}>
+                            <em className={styles.faqCategoryName}>{faq.categoryName}</em>
+                            {activeTab === 'USAGE' && (
+                              <em className={styles.faqSubCategoryName}>{faq.subCategoryName}</em>
+                            )}
+                          </div>
+                          <div className={styles.faqQuestionContainer}>
+                            <div className={styles.faqQuestion}>{faq.question}</div>
+                          </div>
+                        </div>
                       </Accordion.Header>
-                      <Accordion.Content id={faq.id}>
+                      <Accordion.Content id={String(faq.id)}>
                         <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
                       </Accordion.Content>
                     </Accordion.Item>
