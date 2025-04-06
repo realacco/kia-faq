@@ -5,7 +5,7 @@
 // SCSS 변수 정의
 $gray-rgb-light: 0, 0, 0;
 $gray-rgb-dark: 255, 255, 255;
-$primary-color: #0070f3;
+$primary-color: #05141f;
 $border-color: #eaeaea;
 $disabled-color: #ccc;
 $box-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -19,13 +19,14 @@ $box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
   --button-secondary-hover: #f2f2f2;
 
   display: grid;
-  grid-template-rows: 20px 1fr 20px;
+  grid-template-rows: auto 1fr auto;
   align-items: center;
   justify-items: center;
   min-height: 100svh;
-  padding: 80px;
-  gap: 64px;
+  padding: 40px 80px 80px;
+  gap: 40px;
   font-family: var(--font-geist-sans);
+  background-color: #fff;
 
   // 다크모드 설정을 중첩으로 표현
   @media (prefers-color-scheme: dark) {
@@ -34,21 +35,28 @@ $box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
     --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
     --button-primary-hover: #ccc;
     --button-secondary-hover: #1a1a1a;
+    background-color: #121212;
   }
 
   // 모바일 반응형 스타일 중첩
-  @media (max-width: 600px) {
-    padding: 32px;
-    padding-bottom: 80px;
+  @include bp.mobile-only {
+    padding: 20px 16px 40px;
   }
 }
 
 .main {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 48px;
   grid-row-start: 2;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  // 모바일 대응
+  @include bp.mobile-only {
+    gap: 32px;
+  }
 
   ol {
     font-family: var(--font-geist-mono);
@@ -78,21 +86,32 @@ $box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     font-weight: 600;
   }
-
-  // 모바일 대응
-  @media (max-width: 600px) {
-    align-items: center;
-  }
 }
 
 .title {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  text-align: center;
+  margin-bottom: 16px;
 
   em {
     @include tp.label;
     font-style: normal;
+    color: #666;
+  }
+}
+
+.faqContainer {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: $box-shadow-medium;
+  overflow: hidden;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 }
 
