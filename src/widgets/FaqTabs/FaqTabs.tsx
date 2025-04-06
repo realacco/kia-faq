@@ -200,7 +200,7 @@ export const FaqTabs: React.FC = () => {
                 <div className={styles.loadMoreContainer}>
                   <Button variant="text" onClick={handleLoadMore}>
                     <span className={styles['plus-icon']} />
-                    더보기
+                    <span className={styles.moreText}>더보기</span>
                   </Button>
                 </div>
               )}

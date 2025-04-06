@@ -73,7 +73,7 @@ export const TermsDialog: React.FC<TermsDialogProps> = ({
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.dialog} onClick={e => e.stopPropagation()}>
         <div className={styles.header}>
-          <h2>{term?.termsName || '이용약관'}</h2>
+          <h6>{term?.termsName || '이용약관'}</h6>
           <CloseIcon onClick={onClose} className={styles.closeButton} />
         </div>
 

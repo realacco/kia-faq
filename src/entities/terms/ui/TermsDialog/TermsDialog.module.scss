@@ -28,13 +28,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  border-bottom: 1px solid var(--color-border);
 
-  h2 {
+  h6 {
     margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--color-text-primary, #333);
+    color: var(--color-primary);
   }
 }
 
