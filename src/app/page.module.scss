@@ -94,12 +94,6 @@ $box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
   gap: 8px;
   text-align: left;
   margin-bottom: 16px;
-
-  em {
-    @include tp.label;
-    font-style: normal;
-    color: #666;
-  }
 }
 
 .ctas {

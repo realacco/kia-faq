@@ -121,6 +121,10 @@
   font-size: vars.$font-size-md; // 16px
   font-weight: vars.$font-weight-semibold;
   line-height: vars.$line-height-normal;
+
+  @include bp.media-breakpoint-down('tablet') {
+    font-size: vars.$font-size-sm; // 14px
+  }
 }
 
 @mixin label {
