@@ -20,6 +20,9 @@ export const FaqTabs: React.FC = () => {
   const [localFaqs, setLocalFaqs] = useState<any[]>([]);
   const [hasMoreData, setHasMoreData] = useState(true);
 
+  // 검색 요청마다 고유한 식별자를 생성하기 위한 타임스탬프
+  const [searchTimestamp, setSearchTimestamp] = useState(Date.now());
+
   const { data: categoriesByTab, isLoading: isLoadingCategories } =
     useFaqCategoriesByTab(activeTab);
 
@@ -32,6 +35,7 @@ export const FaqTabs: React.FC = () => {
     tab: activeTab,
     categoryId: activeCategory,
     searchText: searchQuery,
+    _timestamp: searchTimestamp, // 타임스탬프를 쿼리 파라미터에 추가
   });
 
   useEffect(() => {
@@ -55,6 +59,7 @@ export const FaqTabs: React.FC = () => {
 
   const search = () => {
     setSearchQuery(searchText);
+    setSearchTimestamp(Date.now()); // 새로운 타임스탬프 생성
     setPage(1);
     setLocalFaqs([]);
     setHasMoreData(true);
@@ -63,6 +68,24 @@ export const FaqTabs: React.FC = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     search();
+  };
+
+  const handleInputSearch = (value: string) => {
+    setSearchText(value);
+    setSearchQuery(value);
+    setSearchTimestamp(Date.now()); // 새로운 타임스탬프 생성
+    setPage(1);
+    setLocalFaqs([]);
+    setHasMoreData(true);
+  };
+
+  const handleInputClear = () => {
+    setSearchText('');
+    setSearchQuery('');
+    setSearchTimestamp(Date.now()); // 새로운 타임스탬프 생성
+    setPage(1);
+    setLocalFaqs([]);
+    setHasMoreData(true);
   };
 
   const handleLoadMore = () => {
@@ -101,8 +124,8 @@ export const FaqTabs: React.FC = () => {
               className={styles.searchInput}
               value={searchText}
               onChange={e => setSearchText(e.target.value)}
-              onClear={() => setSearchText('')}
-              onSearch={search}
+              onClear={handleInputClear}
+              onSearch={handleInputSearch}
             />
           </form>
         </div>
