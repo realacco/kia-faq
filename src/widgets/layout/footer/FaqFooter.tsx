@@ -2,8 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { Dialog } from '@/shared/ui/Dialog';
-import { Select } from '@/shared/ui/Select';
+import TermsDialog from '@/entities/terms/ui/TermsDialog';
 
 import styles from './FaqFooter.module.scss';
 
@@ -72,20 +71,13 @@ export const FaqFooter: React.FC = () => {
           </div>
         </div>
       </div>
-      <Dialog isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} title="이용 약관">
-        <div>
-          <p>이용 약관 내용</p>
-          <Select
-            options={[
-              { value: 'option1', label: '옵션 1' },
-              { value: 'option2', label: '옵션 2' },
-              { value: 'option3', label: '옵션 3' },
-            ]}
-            placeholder="선택하세요"
-            onChange={selected => console.log('Selected:', selected)}
-          />
-        </div>
-      </Dialog>
+
+      {/* 이용약관 다이얼로그 */}
+      <TermsDialog
+        isOpen={isTermsOpen}
+        onClose={() => setIsTermsOpen(false)}
+        initialVersion={5} // 최신 버전(5)을 기본값으로 설정
+      />
     </footer>
   );
 };
