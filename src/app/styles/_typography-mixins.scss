@@ -117,6 +117,12 @@
   }
 }
 
+@mixin menu-item {
+  font-size: vars.$font-size-md; // 16px
+  font-weight: vars.$font-weight-semibold;
+  line-height: vars.$line-height-normal;
+}
+
 @mixin label {
   // 기본값: 1440px 이상
   font-size: vars.$font-size-sm; // 14px

@@ -1,0 +1,193 @@
+@use '@/app/styles/breakpoints' as bp;
+@use '@/app/styles/typography-mixins' as tp;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: var(--color-secondary);
+  box-shadow: 0 2px 5px var(--color-shadow);
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.logo {
+  margin-right: auto;
+  width: 140px;
+  height: 80px;
+
+  @include bp.mobile-tablet {
+    width: 100px;
+    height: 60px;
+  }
+}
+
+.scrolled {
+  height: 60px;
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  height: 100%;
+  margin-left: auto;
+  @include tp.menu-item;
+
+  &.open {
+    @include tp.heading-3;
+  }
+
+  ul {
+    display: flex;
+    height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      height: 100%;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: var(--color-primary);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+        color: var(--color-text-primary);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+    }
+  }
+}
+
+.util {
+  display: none;
+
+  @include bp.mobile-tablet {
+    display: block;
+  }
+}
+
+.navToggle {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  .bar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: all 0.3s;
+
+    &:nth-child(1) {
+      top: 4px;
+    }
+
+    &:nth-child(2) {
+      top: 11px;
+    }
+
+    &:nth-child(3) {
+      top: 18px;
+    }
+  }
+
+  .text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  &.open {
+    .bar {
+      &:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+    }
+  }
+}
+
+// 모바일 스타일
+@include bp.mobile-tablet {
+  .nav {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background-color: var(--color-secondary);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+
+    &.open {
+      transform: translateX(0);
+      box-shadow: 0 5px 10px var(--color-shadow);
+    }
+
+    ul {
+      flex-direction: column;
+      height: auto;
+
+      li {
+        height: auto;
+
+        &::after {
+          display: none;
+        }
+
+        a {
+          padding: 20px;
+          height: auto;
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  .scrolled {
+    .nav {
+      top: 60px;
+      height: calc(100vh - 60px);
+    }
+  }
+}
