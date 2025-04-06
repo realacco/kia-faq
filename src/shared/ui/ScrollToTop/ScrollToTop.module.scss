@@ -1,0 +1,33 @@
+@use '@/app/styles/breakpoints' as bp;
+
+.scrollToTop {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  color: white;
+  display: none; /* 기본적으로 숨김 */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 99999;
+  
+  &.visible {
+    display: flex !important; /* visible 클래스가 있을 때 강제로 표시 */
+  }
+  
+  &:hover {
+    background-color: var(--color-secondary-dark, #004c99);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+  
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
