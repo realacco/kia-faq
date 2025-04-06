@@ -1,15 +1,10 @@
 .accordion {
   width: 100%;
-  border: 1px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
 
   .item {
     border-bottom: 1px solid var(--color-border);
-
-    &:last-child {
-      border-bottom: none;
-    }
   }
 
   .header {

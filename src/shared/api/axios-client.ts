@@ -3,12 +3,27 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 // Next.js API 라우트를 사용하도록 변경
 const API_URL = '/api';
 
+// 테스트를 위한 인위적인 지연 시간
+const ARTIFICIAL_DELAY = 1000;
+
 export const axiosClient = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+// Request interceptor - 인위적인 지연 추가
+axiosClient.interceptors.request.use(
+  async config => {
+    // 모든 요청에 인위적인 지연 추가
+    await new Promise(resolve => setTimeout(resolve, ARTIFICIAL_DELAY));
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 // Response interceptor
 axiosClient.interceptors.response.use(

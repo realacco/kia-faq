@@ -172,6 +172,12 @@ p {
   margin-bottom: 1rem;
 }
 
+em {
+  @include type.label;
+  font-style: normal;
+  color: var(--color-text-muted);
+}
+
 // 링크 스타일
 a {
   color: inherit;

@@ -10,38 +10,48 @@ const DESKTOP_BREAKPOINT = 1024;
 
 export const FaqHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth : 0
-  );
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   // ResizeObserver를 위한 ref
   const headerRef = useRef<HTMLElement>(null);
+  const bodyRef = useRef<HTMLElement | null>(null);
 
-  // 스크롤 시 헤더 스타일 변경을 위한 이벤트 리스너
+  // 컴포넌트 마운트 시 클라이언트 사이드 렌더링 표시
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
+    setIsMounted(true);
+    setWindowWidth(window.innerWidth);
+  }, []);
 
-    window.addEventListener('scroll', handleScroll);
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    if (bodyRef.current) {
+      const scrollTop = bodyRef.current.scrollTop || document.documentElement.scrollTop;
+      setHasScrolled(scrollTop > 10);
+    }
+  };
+
+  // 스크롤 이벤트 등록
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      bodyRef.current = document.body;
+
+      if (bodyRef.current) {
+        bodyRef.current.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+      }
+    }
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      if (bodyRef.current) {
+        bodyRef.current.removeEventListener('scroll', handleScroll);
+      }
     };
   }, []);
 
   // ResizeObserver를 사용한 화면 크기 변경 감지
   useEffect(() => {
-    // 초기 로드 시 창 크기 설정
-    if (typeof window !== 'undefined') {
-      setWindowWidth(window.innerWidth);
-    }
-
     // ResizeObserver 생성
     const resizeObserver = new ResizeObserver(() => {
       // viewport 크기를 직접 가져옴
@@ -77,7 +87,10 @@ export const FaqHeader: React.FC = () => {
   const isMobileOrTablet = windowWidth < DESKTOP_BREAKPOINT;
 
   return (
-    <header ref={headerRef} className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+    <header
+      ref={headerRef}
+      className={`${styles.header} ${hasScrolled ? styles.scrolled : styles.noShadow}`}
+    >
       <div className={styles.inner}>
         <Link
           href="/"
@@ -131,9 +144,9 @@ export const FaqHeader: React.FC = () => {
           </ul>
         </nav>
 
-        {/* 모바일 및 태블릿 사이즈에서의 토글 */}
-        {isMobileOrTablet && (
-          <span className={styles.util}>
+        {/* 모바일 및 태블릿 사이즈에서의 토글 - 클라이언트 사이드에서만 렌더링 */}
+        <div className={styles.util}>
+          {isMounted && isMobileOrTablet && (
             <Button
               type="button"
               variant="text"
@@ -146,8 +159,8 @@ export const FaqHeader: React.FC = () => {
               <span className={styles.bar}></span>
               <span className={styles.text}>메뉴 열기/닫기</span>
             </Button>
-          </span>
-        )}
+          )}
+        </div>
       </div>
     </header>
   );

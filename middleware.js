@@ -1,10 +1,5 @@
 // 50% 확률로 API 호출이 실패하도록 하는 미들웨어
 module.exports = (req, res, next) => {
-  // OPTIONS 요청은 항상 성공하도록 처리 (CORS 프리플라이트 요청)
-  if (req.method === 'OPTIONS') {
-    return next();
-  }
-
   // 50% 확률로 실패 응답 반환
   if (Math.random() < 0.5) {
     // 다양한 HTTP 상태 코드로 실패 응답 생성

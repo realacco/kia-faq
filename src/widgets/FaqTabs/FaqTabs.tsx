@@ -2,11 +2,12 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { FAQ_TABS, FaqTabId } from '@/entities/faq/model/types';
+import { FAQ_TABS, FaqItem, FaqTabId } from '@/entities/faq/model/types';
 import { useFaqCategoriesByTab, usePaginatedFaqs } from '@/shared/api/faq/hooks';
 import { Accordion } from '@/shared/ui/Accordion';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
+import { Spinner } from '@/shared/ui/Spinner';
 import { Tab } from '@/shared/ui/Tab/Tab';
 
 import styles from './FaqTabs.module.scss';
@@ -17,7 +18,7 @@ export const FaqTabs: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
-  const [localFaqs, setLocalFaqs] = useState<any[]>([]);
+  const [localFaqs, setLocalFaqs] = useState<FaqItem[]>([]);
   const [hasMoreData, setHasMoreData] = useState(true);
 
   // 검색 요청마다 고유한 식별자를 생성하기 위한 타임스탬프
@@ -35,7 +36,7 @@ export const FaqTabs: React.FC = () => {
     tab: activeTab,
     categoryId: activeCategory,
     searchText: searchQuery,
-    _timestamp: searchTimestamp, // 타임스탬프를 쿼리 파라미터에 추가
+    _timestamp: searchTimestamp,
   });
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export const FaqTabs: React.FC = () => {
 
   const search = () => {
     setSearchQuery(searchText);
-    setSearchTimestamp(Date.now()); // 새로운 타임스탬프 생성
+    setSearchTimestamp(Date.now());
     setPage(1);
     setLocalFaqs([]);
     setHasMoreData(true);
@@ -73,7 +74,7 @@ export const FaqTabs: React.FC = () => {
   const handleInputSearch = (value: string) => {
     setSearchText(value);
     setSearchQuery(value);
-    setSearchTimestamp(Date.now()); // 새로운 타임스탬프 생성
+    setSearchTimestamp(Date.now());
     setPage(1);
     setLocalFaqs([]);
     setHasMoreData(true);
@@ -82,7 +83,7 @@ export const FaqTabs: React.FC = () => {
   const handleInputClear = () => {
     setSearchText('');
     setSearchQuery('');
-    setSearchTimestamp(Date.now()); // 새로운 타임스탬프 생성
+    setSearchTimestamp(Date.now());
     setPage(1);
     setLocalFaqs([]);
     setHasMoreData(true);
@@ -91,15 +92,6 @@ export const FaqTabs: React.FC = () => {
   const handleLoadMore = () => {
     setPage(prev => prev + 1);
   };
-
-  useEffect(() => {
-    console.log('Active Tab:', activeTab);
-    console.log('Categories:', categories);
-    console.log('Categories length:', categories.length);
-    if (categories.length > 0) {
-      console.log('First category:', categories[0]);
-    }
-  }, [activeTab, categories]);
 
   return (
     <div className={styles.faqTabsContainer}>
@@ -144,7 +136,9 @@ export const FaqTabs: React.FC = () => {
                 }}
               >
                 {isLoadingCategories ? (
-                  <div className={styles.loading}>카테고리 로딩 중...</div>
+                  <div className={styles.loading}>
+                    <Spinner size="small" className={styles.loadingSpinner} />
+                  </div>
                 ) : (
                   <Tab.List className={styles.categoryTabList}>
                     <Tab.Item
@@ -173,34 +167,46 @@ export const FaqTabs: React.FC = () => {
 
             <div className={styles.contentArea}>
               {isLoadingFaqs && page === 1 ? (
-                <div className={styles.loading}>FAQ 로딩 중...</div>
+                <div className={styles.loading}>
+                  <Spinner size="medium" className={styles.loadingSpinner} />
+                </div>
               ) : !localFaqs || localFaqs.length === 0 ? (
                 <div className={styles.noResults}>검색 결과가 없습니다.</div>
               ) : (
                 <Accordion className={styles.faqList}>
                   {localFaqs.map(faq => (
-                    <Accordion.Item key={faq.id} id={faq.id}>
-                      <Accordion.Header id={faq.id}>
-                        <h3 className={styles.faqQuestion}>{faq.question}</h3>
+                    <Accordion.Item key={String(faq.id)} id={String(faq.id)}>
+                      <Accordion.Header id={String(faq.id)}>
+                        <div className={styles.faqHeader}>
+                          <div className={styles.categoryWrapper}>
+                            <em className={styles.faqCategoryName}>{faq.categoryName}</em>
+                            {activeTab === 'USAGE' && (
+                              <em className={styles.faqSubCategoryName}>{faq.subCategoryName}</em>
+                            )}
+                          </div>
+                          <div className={styles.faqQuestionContainer}>
+                            <div className={styles.faqQuestion}>{faq.question}</div>
+                          </div>
+                        </div>
                       </Accordion.Header>
-                      <Accordion.Content id={faq.id}>
+                      <Accordion.Content id={String(faq.id)}>
                         <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
                       </Accordion.Content>
                     </Accordion.Item>
                   ))}
                 </Accordion>
               )}
-
               {!isLoadingFaqs && hasMoreData && localFaqs.length > 0 && (
                 <div className={styles.loadMoreContainer}>
-                  {isLoadingFaqs && page > 1 ? (
-                    '로딩 중...'
-                  ) : (
-                    <Button variant="text" onClick={handleLoadMore}>
-                      <span className={styles['plus-icon']} />
-                      더보기
-                    </Button>
-                  )}
+                  <Button variant="text" onClick={handleLoadMore}>
+                    <span className={styles['plus-icon']} />
+                    더보기
+                  </Button>
+                </div>
+              )}
+              {isLoadingFaqs && page > 1 && (
+                <div className={styles.loadMoreLoading}>
+                  <Spinner size="small" className={styles.loadingSpinner} />
                 </div>
               )}
             </div>
