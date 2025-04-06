@@ -211,7 +211,7 @@
   box-shadow: none;
 
   .faqQuestion {
-    @include tp.body-default;
+    @include tp.menu-item;
   }
 
   .faqAnswer {
@@ -237,7 +237,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-  
+
   @include bp.desktop-up {
     margin-bottom: 0;
   }
@@ -245,7 +245,7 @@
 
 .faqCategoryName {
   @include tp.body-small;
-  
+
   @include bp.desktop-up {
     width: 140px;
     margin-right: 16px;
@@ -255,7 +255,7 @@
 .faqSubCategoryName {
   @include tp.body-small;
   margin-left: 8px;
-  
+
   &:before {
     content: '>';
     margin-right: 8px;
@@ -266,7 +266,7 @@
     margin-left: 0;
     width: 160px;
     margin-right: 16px;
-    
+
     &:before {
       content: '';
       margin-right: 0;
