@@ -15,7 +15,7 @@ import styles from './ProcessGuide.module.scss';
 export const ProcessGuide: React.FC = () => {
   return (
     <section className={styles.processGuide}>
-      <h2 className={styles.title}>이용 프로세스 안내</h2>
+      <h3 className={styles.title}>이용 프로세스 안내</h3>
       <div className={styles.processContainer}>
         <ul className={styles.processList}>
           <li className={styles.processItem}>
