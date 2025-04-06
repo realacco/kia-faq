@@ -15,43 +15,31 @@ const Error = ({ error, reset }: ErrorProps) => {
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
-      <h1 className="text-3xl font-bold mb-4">오류가 발생했습니다</h1>
-      <p className="text-lg mb-3">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center bg-gray-50">
+      <div className="w-20 h-20 mb-6 text-[#05141f]">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            fillRule="evenodd"
+            d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </div>
+      <h1 className="text-3xl font-bold mb-4 text-[#05141f]">오류가 발생했습니다</h1>
+      <p className="text-lg mb-3 text-gray-800 max-w-md">
         {error.message || '페이지를 표시하는 중에 문제가 발생했습니다.'}
       </p>
-      <p className="text-md text-gray-600 mb-6">
+      <p className="text-md text-gray-600 mb-8 max-w-md">
         네트워크 문제가 발생했거나 일시적인 서버 오류일 수 있습니다.
       </p>
 
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
+      <div className="flex flex-col md:flex-row gap-4 mb-10 w-full max-w-md">
         <button
           onClick={reset}
-          className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-6 py-3 bg-[#05141f] text-white rounded hover:bg-[#0a2540] transition-colors w-full md:w-1/2"
         >
           다시 시도
         </button>
-        <Link href="/" className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
-          홈으로 돌아가기
-        </Link>
-      </div>
-
-      <div className="mt-4 border-t border-gray-200 pt-6 w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-4">FAQ 바로가기</h2>
-        <div className="flex flex-col gap-3">
-          <Link
-            href="/?tab=CONSULT"
-            className="px-4 py-3 bg-green-50 text-green-700 rounded border border-green-200 hover:bg-green-100"
-          >
-            상담 FAQ 보기 (CONSULT)
-          </Link>
-          <Link
-            href="/?tab=USAGE"
-            className="px-4 py-3 bg-blue-50 text-blue-700 rounded border border-blue-200 hover:bg-blue-100"
-          >
-            이용 FAQ 보기 (USAGE)
-          </Link>
-        </div>
       </div>
     </div>
   );

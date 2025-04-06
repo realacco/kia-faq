@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Term } from '@/entities/terms/model/terms';
 import { useAllTerms, useTermByVersion } from '@/shared/api/terms/useTerms';
+import { CloseIcon } from '@/shared/assets/icons';
 import { Select } from '@/shared/ui/Select';
 
 import styles from './TermsDialog.module.scss';
@@ -73,9 +74,7 @@ export const TermsDialog: React.FC<TermsDialogProps> = ({
       <div className={styles.dialog} onClick={e => e.stopPropagation()}>
         <div className={styles.header}>
           <h2>{term?.termsName || '이용약관'}</h2>
-          <button className={styles.closeButton} onClick={onClose} aria-label="닫기">
-            &times;
-          </button>
+          <CloseIcon onClick={onClose} className={styles.closeButton} />
         </div>
 
         <div className={styles.selectContainer}>
