@@ -10,11 +10,11 @@
   background-color: var(--color-secondary);
   z-index: 100;
   transition: all 0.3s ease;
-  
+
   &.scrolled {
     box-shadow: 0 2px 5px var(--color-shadow);
   }
-  
+
   &.noShadow {
     box-shadow: none;
   }
@@ -76,7 +76,7 @@
         align-items: center;
         height: 100%;
         padding: 0 20px;
-        color: var(--color-text-primary);
+        color: var(--color-primary);
         text-decoration: none;
         transition: color 0.3s;
       }

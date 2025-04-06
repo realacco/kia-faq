@@ -16,7 +16,7 @@
   &::after {
     content: '';
     position: absolute;
-    background-color: currentColor; // 버튼 텍스트 색상 상속
+    background-color: var(--color-text-primary); // 버튼 텍스트 색상 상속
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
